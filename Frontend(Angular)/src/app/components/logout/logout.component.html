@@ -1,0 +1,10 @@
+<clr-modal [(clrModalOpen)]="basic">
+  <h3 class="modal-title">Logout ?</h3>
+  <div class="modal-body">
+    Your Cart Data will be Saved Safely!
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="goBack()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="onLogout()">Ok</button>
+  </div>
+</clr-modal>

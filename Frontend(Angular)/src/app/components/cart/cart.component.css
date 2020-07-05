@@ -1,0 +1,13 @@
+.title{
+  color: black;
+  text-decoration: none;
+}
+
+.inc_dec {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.col_3 {
+  text-align: center;
+}

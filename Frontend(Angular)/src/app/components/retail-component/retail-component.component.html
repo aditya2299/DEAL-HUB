@@ -1,0 +1,148 @@
+<div *ngIf="show">
+
+  <div *ngIf="mobile_view">
+    <div *ngIf="view_status">
+      <ng-container *ngFor="let product of retailArray" style="width: 100%;">
+        <mat-card style="margin-top: 10px;width: 100%;">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="3" style="width: 15rem;height: 12.5rem;"><a href="{{product.href}}" target="blank"><img src="{{product.image}}" style="max-width: 10rem;max-height: 12.5rem;"></a></td>
+              <td colspan="2"><a href="{{product.href}}" class="title" target="blank"><span>{{product.title}}</span></a>
+                <br>
+                <span *ngFor="let rate_bool of product.rating_bool">
+                  <span *ngIf="rate_bool">
+                    <clr-icon shape="star" class="is-solid"></clr-icon>
+                  </span>
+                  <span *ngIf="!rate_bool">
+                    <clr-icon shape="star"></clr-icon>
+                  </span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <!--Website-->
+              <td [ngSwitch]="product.website" style="max-width: 18.125rem;">
+                <span *ngSwitchCase="'sangeetha_mobiles'">
+                  <a href="{{websiteArray.sangeetha_mobiles.url}}" target="blank">
+                    <img src="{{websiteArray.sangeetha_mobiles.src}}" style="max-width: 11rem;max-height: 4rem;">
+                  </a>
+                </span>
+                <span *ngSwitchCase="'croma'">
+                  <a href="{{websiteArray.croma.url}}" target="blank">
+                    <img src="{{websiteArray.croma.src}}" style="max-width: 11rem;max-height: 4rem;">
+                  </a>
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-warning-outline">
+                  Add to Favorites
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td><clr-icon shape="rupee"></clr-icon>{{product.price}}</td>
+              <td>
+                <button class="btn" [ngClass]="{'btn-outline': !product.cart, 'btn-danger-outline': product.cart}" (click)="changeCartStatus(product)" *ngIf="!product.cart">
+                  <span>
+                    Add to Cart
+                  </span>
+                </button>
+                <button class="btn btn-icon btn-success" aria-label="done" *ngIf="product.cart">
+                  <clr-icon shape="check"></clr-icon>
+                  <span>
+                    Added to Cart
+                  </span>
+                </button>
+              </td>
+            </tr>
+          </table>
+        </mat-card>
+      </ng-container>
+    </div>
+  </div>
+
+  <div *ngIf="!mobile_view">
+    <div *ngIf="view_status" style="font-size: 2.5vw;">
+      <ng-container *ngFor="let product of retailArray" style="width: 100%;">
+        <mat-card style="margin-top: 10px;width: 100%;">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="3" style="width: 15em;height: 12.5em;"><a href="{{product.href}}" target="blank"><img src="{{product.image}}" style="max-width: 10em;max-height: 12.5em;"></a></td>
+              <td colspan="2"><a href="{{product.href}}" class="title" target="blank"><span>{{product.title}}</span></a>
+                <br>
+                <span *ngFor="let rate_bool of product.rating_bool">
+                  <span *ngIf="rate_bool">
+                    <clr-icon shape="star" class="is-solid" size="10"></clr-icon>
+                  </span>
+                  <span *ngIf="!rate_bool">
+                    <clr-icon shape="star" size="10"></clr-icon>
+                  </span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <!--Website-->
+              <td [ngSwitch]="product.website" style="max-width: 18.125em;">
+                <span *ngSwitchCase="'sangeetha_mobiles'">
+                  <a href="{{websiteArray.sangeetha_mobiles.url}}" target="blank">
+                    <img src="{{websiteArray.sangeetha_mobiles.src}}" style="max-width: 11em;max-height: 4em;">
+                  </a>
+                </span>
+                <span *ngSwitchCase="'croma'">
+                  <a href="{{websiteArray.croma.url}}" target="blank">
+                    <img src="{{websiteArray.croma.src}}" style="max-width: 11rem;max-height: 4rem;">
+                  </a>
+                </span>
+              </td>
+              <td>
+                <button mat-raised-button color="primary" style="font-size: 10px;line-height: 20px; padding: 0px;">
+                  <clr-icon shape="heart" class="is-solid"></clr-icon>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td><clr-icon shape="rupee"></clr-icon>{{product.price}}</td>
+              <td>
+                <button mat-raised-button color="primary" (click)="changeCartStatus(product)" *ngIf="!product.cart" style="font-size: 10px;line-height: 20px; padding: 0px;">
+                  <span>
+                    Add to Cart
+                  </span>
+                </button>
+                <button mat-raised-button color="primary" *ngIf="product.cart" style="font-size: 10px;line-height: 20px; padding: 0px;">
+                  <clr-icon shape="check"></clr-icon>
+                  <span>
+                    Added to Cart
+                  </span>
+                </button>
+              </td>
+            </tr>
+          </table>
+        </mat-card>
+      </ng-container>
+    </div>
+  </div>
+
+  <div *ngIf="!view_status">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <img src="{{websiteArray.sangeetha_mobiles.src}}" style="max-width: 11rem;max-height: 4rem;">
+        </ng-template>
+        <app-sangeethamobiles></app-sangeethamobiles>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <img src="{{websiteArray.croma.src}}" style="max-width: 11rem;max-height: 4rem;">
+        </ng-template>
+        <app-croma></app-croma>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+
+</div>
+<div *ngIf="!show">
+  <span>
+    Sorry no results to display
+  </span>
+</div>

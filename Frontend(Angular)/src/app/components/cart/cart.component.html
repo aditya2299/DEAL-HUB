@@ -1,0 +1,185 @@
+<div>
+
+  <div style="font-size: medium;">
+    <a style="cursor: pointer;margin: 0px 10px;" (click)="back()">
+      <clr-icon shape="circle-arrow" style="transform: rotate(270deg);" size="20"></clr-icon>
+    </a>
+    Budget Cart
+  </div>
+  <br>
+  <nav class="subnav">
+    <button class="btn btn-info btn-sm" (click)="emptyCart()" [disabled]="!cartbool">
+      Empty Cart
+    </button>
+  </nav>
+
+  <div *ngIf="mobile_view">
+    <div *ngIf="cartbool">
+      <ng-container *ngFor="let product of cart" style="width: 100%;">
+        <mat-card style="margin-top: 10px;width: 100%;">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="3" style="width: 15rem;height: 12.5rem;"><a href="{{product.href}}"><img src="{{product.image}}" style="max-width: 10rem;max-height: 12.5rem;"></a></td>
+              <td><a href="{{product.href}}" class="title"><span>{{product.title}}</span></a>
+                <br>
+                <span *ngFor="let rate_bool of product.rating_bool">
+                  <span *ngIf="rate_bool">
+                    <clr-icon shape="star" class="is-solid"></clr-icon>
+                  </span>
+                  <span *ngIf="!rate_bool">
+                    <clr-icon shape="star"></clr-icon>
+                  </span>
+                </span>
+              </td>
+              <td class="col_3">Quantity</td>
+              <td>Sub price</td>
+            </tr>
+            <tr>
+              <!--Website-->
+              <td [ngSwitch]="product.website" style="width: 18.125rem;">
+                <span *ngSwitchCase="'amazon'">
+                  <a href="{{websiteArray.amazon.url}}">
+                    <img src="{{websiteArray.amazon.src}}" style="max-width: 7.7rem;max-height: 1.5rem;">
+                  </a>
+                </span>
+                <span *ngSwitchCase="'flipkart'">
+                  <a href="{{websiteArray.flipkart.url}}">
+                    <img src="{{websiteArray.flipkart.src}}" style="max-width: 11rem;max-height: 3rem;">
+                  </a>
+                </span>
+                <span *ngSwitchCase="'paytm'">
+                  <a href="{{websiteArray.paytm.url}}">
+                    <img src="{{websiteArray.paytm.src}}" style="max-width: 11rem;max-height: 3.125rem;">
+                  </a>
+                </span>
+                <span *ngSwitchCase="'sangeetha_mobiles'">
+                  <a href="{{websiteArray.sangeetha_mobiles.url}}">
+                    <img src="{{websiteArray.sangeetha_mobiles.src}}" style="max-width: 11rem;max-height: 4rem;">
+                  </a>
+                </span>
+              </td>
+              <td class="col_3">
+                <!--INCREASE/DECREASE QUANTITY-->
+                <a class="inc_dec" (click)="changeProductCount(product, false)">
+                  <clr-icon shape="minus-circle" size="20"></clr-icon>
+                </a>
+                <input type="text" name="{{product.cart_count}}" [(ngModel)]="product.cart_count" disabled style="width: 40px;margin: 0px 6px;"/>
+                <a class="inc_dec" (click)="changeProductCount(product, true)">
+                  <clr-icon shape="plus-circle" size="20"></clr-icon>
+                </a>
+              </td>
+              <td>
+                <clr-icon shape="rupee"></clr-icon>{{subPrice(product.numeric_price, product.cart_count)}}
+              </td>
+            </tr>
+            <tr>
+              <td><clr-icon shape="rupee"></clr-icon>{{product.price}}</td>
+              <td class="col_3">
+                <button class="btn btn-danger-outline" (click)="remove(product)">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          </table>
+        </mat-card>
+      </ng-container>
+      <mat-card style="margin-top: 10px;width: 100%;display: flex;justify-content: flex-end;">
+        <div>Total Price :</div>
+        <div><clr-icon shape="rupee"></clr-icon>{{totalPrice()}}</div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div *ngIf="!mobile_view">
+    <div *ngIf="cartbool" style="font-size: 2.5vw;">
+      <ng-container *ngFor="let product of cart" style="width: 100%;">
+        <mat-card style="margin-top: 10px;width: 100%;">
+          <table style="width: 100%;">
+            <tr>
+              <td rowspan="3" style="width: 15em;height: 12.5em;"><a href="{{product.href}}"><img src="{{product.image}}" style="max-width: 10em;max-height: 12.5em;"></a></td>
+              <td><a href="{{product.href}}" class="title"><span>{{product.title}}</span></a>
+                <br>
+                <span *ngFor="let rate_bool of product.rating_bool">
+                  <span *ngIf="rate_bool">
+                    <clr-icon shape="star" class="is-solid" size="9"></clr-icon>
+                  </span>
+                  <span *ngIf="!rate_bool">
+                    <clr-icon shape="star" size="9"></clr-icon>
+                  </span>
+                </span>
+              </td>
+              <td class="col_3">Quantity</td>
+              <td>Sub price</td>
+            </tr>
+            <tr>
+              <!--Website-->
+              <td [ngSwitch]="product.website" style="width: 18.125em;">
+                <span *ngSwitchCase="'amazon'">
+                  <a href="{{websiteArray.amazon.url}}">
+                    <img src="{{websiteArray.amazon.src}}" style="max-width: 7.7em;max-height: 1.5em;">
+                  </a>
+                </span>
+                <span *ngSwitchCase="'flipkart'">
+                  <a href="{{websiteArray.flipkart.url}}">
+                    <img src="{{websiteArray.flipkart.src}}" style="max-width: 11em;max-height: 3em;">
+                  </a>
+                </span>
+                <span *ngSwitchCase="'paytm'">
+                  <a href="{{websiteArray.paytm.url}}">
+                    <img src="{{websiteArray.paytm.src}}" style="max-width: 11em;max-height: 3.125em;">
+                  </a>
+                </span>
+                <span *ngSwitchCase="'sangeetha_mobiles'">
+                  <a href="{{websiteArray.sangeetha_mobiles.url}}">
+                    <img src="{{websiteArray.sangeetha_mobiles.src}}" style="max-width: 11em;max-height: 4em;">
+                  </a>
+                </span>
+              </td>
+              <td class="col_3">
+                <!--INCREASE/DECREASE QUANTITY-->
+                <a class="inc_dec" (click)="changeProductCount(product, false)">
+                  <clr-icon shape="minus-circle" size="10"></clr-icon>
+                </a>
+                <input type="text" name="{{product.cart_count}}" [(ngModel)]="product.cart_count" disabled style="width: 20px;margin: 0px 6px;"/>
+                <a class="inc_dec" (click)="changeProductCount(product, true)">
+                  <clr-icon shape="plus-circle" size="10"></clr-icon>
+                </a>
+              </td>
+              <td>
+                <clr-icon shape="rupee"></clr-icon>{{subPrice(product.numeric_price, product.cart_count)}}
+              </td>
+            </tr>
+            <tr>
+              <td><clr-icon shape="rupee"></clr-icon>{{product.price}}</td>
+              <td class="col_3">
+                <button mat-raised-button color="primary" (click)="remove(product)" style="font-size: 10px;line-height: 20px; padding: 0px;">
+                  <span>
+                    Remove
+                  </span>
+                </button>
+              </td>
+            </tr>
+          </table>
+        </mat-card>
+      </ng-container>
+      <mat-card style="margin-top: 10px;width: 100%;display: flex;justify-content: flex-end;">
+        <div>Total Price :</div>
+        <div><clr-icon shape="rupee"></clr-icon>{{totalPrice()}}</div>
+      </mat-card>
+    </div>
+  </div>
+
+
+
+
+</div>
+<div *ngIf="!cartbool">
+<span>
+  Sorry no results to display
+</span>
+</div>
+<ngx-spinner name="cart" bdColor = "rgba(0, 0, 0, 0.5)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true">
+  <p style="color: white" >
+     Fetching your Cart...
+  </p>
+</ngx-spinner>

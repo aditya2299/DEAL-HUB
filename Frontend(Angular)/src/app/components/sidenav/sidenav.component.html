@@ -1,0 +1,70 @@
+<div>
+  <clr-accordion [clrAccordionMultiPanel]=true>
+    <clr-accordion-panel>
+      <clr-accordion-title>PRICE</clr-accordion-title>
+      <clr-accordion-content *clrIfExpanded style="padding: 0px;">
+        <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" style="height: 10px;"></ng5-slider>
+        <button class="btn btn-primary btn-sm" (click)="getOriginal(1)">Clear</button>
+      </clr-accordion-content>
+    </clr-accordion-panel>
+
+    <clr-accordion-panel>
+      <clr-accordion-title>AVG CUSTOMER REVIEW</clr-accordion-title>
+      <clr-accordion-content *clrIfExpanded>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio value="1" name="radio_options" [(ngModel)]="radio_options" (change)="onRadioChange()"/>
+          <label>
+            <clr-icon shape="star" class="is-solid"></clr-icon>
+            <clr-icon shape="star"></clr-icon>
+            <clr-icon shape="star"></clr-icon>
+            <clr-icon shape="star"></clr-icon>
+            <clr-icon shape="star"></clr-icon>
+            <span>
+              & Above
+            </span>
+          </label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio value="2" name="radio_options" [(ngModel)]="radio_options" (change)="onRadioChange()"/>
+          <label>
+            <clr-icon shape="star" class="is-solid"></clr-icon>
+            <clr-icon shape="star" class="is-solid"></clr-icon>
+            <clr-icon shape="star"></clr-icon>
+            <clr-icon shape="star"></clr-icon>
+            <clr-icon shape="star"></clr-icon>
+            <span>
+              & Above
+            </span>
+          </label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio value="3" name="radio_options" [(ngModel)]="radio_options" (change)="onRadioChange()"/>
+          <label>
+            <clr-icon shape="star" class="is-solid"></clr-icon>
+            <clr-icon shape="star" class="is-solid"></clr-icon>
+            <clr-icon shape="star" class="is-solid"></clr-icon>
+            <clr-icon shape="star"></clr-icon>
+            <clr-icon shape="star"></clr-icon>
+            <span>
+              & Above
+            </span>
+          </label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio value="4" name="radio_options" [(ngModel)]="radio_options" (change)="onRadioChange()"/>
+          <label>
+            <clr-icon shape="star" class="is-solid"></clr-icon>
+            <clr-icon shape="star" class="is-solid"></clr-icon>
+            <clr-icon shape="star" class="is-solid"></clr-icon>
+            <clr-icon shape="star" class="is-solid"></clr-icon>
+            <clr-icon shape="star"></clr-icon>
+            <span>
+              & Above
+            </span>
+          </label>
+        </clr-radio-wrapper>
+        <button class="btn btn-primary btn-sm" (click)="getOriginal(2)">Clear</button>
+      </clr-accordion-content>
+    </clr-accordion-panel>
+  </clr-accordion>
+</div>

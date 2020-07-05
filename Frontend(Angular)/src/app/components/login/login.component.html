@@ -1,0 +1,54 @@
+<clr-modal [(clrModalOpen)]="login_modal" [clrModalClosable]="false">
+  <h3 class="modal-title">Login</h3>
+  <div class="modal-body">
+    <form [formGroup]="loginForm">
+      <div class="login-group">
+          <clr-input-container>
+              <label class="clr-sr-only">Username</label>
+              <input type="text" name="username" clrInput placeholder="Username" formControlName="userName"/>
+          </clr-input-container>
+          <clr-password-container>
+              <label class="clr-sr-only">Password</label>
+              <input type="password" name="password" clrPassword placeholder="Password" formControlName="password"/>
+          </clr-password-container>
+          <br/>OR<br/>
+          <button type="button" class="btn btn-outline" (click)="loginWithGoogle()">
+            <img src="https://s4827.pcdn.co/wp-content/uploads/2018/04/Google-logo-2015-G-icon.png" width="40" height="30">
+            Login with google
+          </button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="goBack()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="onLogin()">Ok</button>
+      <button type="button" class="btn btn-primary" (click)="onSignIn()">Sign In</button>
+  </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="signin_modal" [clrModalClosable]="false">
+  <h3 class="modal-title">Sign In</h3>
+  <div class="modal-body">
+    <form [formGroup]="registerForm">
+      <div class="login-group">
+          <clr-input-container>
+              <label class="clr-sr-only">Username</label>
+              <input type="text" name="username" clrInput placeholder="Username" formControlName="userName"/>
+          </clr-input-container>
+          <clr-password-container>
+              <label class="clr-sr-only">Password</label>
+              <input type="password" name="password" clrPassword placeholder="Password" formControlName="password"/>
+          </clr-password-container>
+          <br/>OR<br/>
+          <button type="button" class="btn btn-outline" (click)="loginWithGoogle()">
+            <img src="https://s4827.pcdn.co/wp-content/uploads/2018/04/Google-logo-2015-G-icon.png" width="40" height="30">
+            Signin with Google
+          </button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="goBack()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="onRegister()">Ok</button>
+  </div>
+</clr-modal>

@@ -1,0 +1,229 @@
+
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" style="width: 350px;">
+        <clr-vertical-nav style="background-color: white;width: 100%">
+          <a style="cursor: pointer;" (click)="opened=!opened" class="nav-link">
+            <clr-icon shape="bars" size="25"></clr-icon>
+          </a>
+          <a clrVerticalNavLink routerLinkActive="active" routerLink="../login">
+            <clr-icon shape="user" size="20"></clr-icon>
+            User
+          </a>
+          <a clrVerticalNavLink routerLinkActive="active" routerLink="./fav">
+            <clr-icon shape="heart" size="20"></clr-icon>
+            Favourites
+          </a>
+          <a clrVerticalNavLink routerLinkActive="active" routerLink="./credit">
+            <clr-icon shape="certificate" clrVerticalNavIcon></clr-icon>
+            Credit
+          </a>
+          <a clrVerticalNavLink routerLinkActive="active" routerLink="../login" *ngIf="!login_bool">
+            <clr-icon shape="login"></clr-icon>
+            Login
+          </a>
+          <a clrVerticalNavLink routerLinkActive="active" routerLink="../logout" *ngIf="login_bool">
+            <clr-icon shape="login"></clr-icon>
+            Logout
+          </a>
+
+          <a clrVerticalNavLink routerLinkActive="active" *ngIf="!mobile_view">
+            <clr-checkbox-container style="margin-top: 0px;">
+              <clr-checkbox-wrapper>
+                <input type="checkbox" clrCheckbox [checked]="mergedbool" (change)="merged()" />
+                <label>Display Merged Results</label>
+              </clr-checkbox-wrapper>
+            </clr-checkbox-container>
+          </a>
+
+          <clr-tree *ngIf="!this.showContainer">
+            <clr-tree-node [clrExpanded]="true" style="outline: none;">
+                Filters
+                <clr-tree-node [clrExpanded]="true">
+                  <app-sidenav style="width: 90%;"></app-sidenav>
+                </clr-tree-node>
+            </clr-tree-node>
+          </clr-tree>
+
+          <clr-tree *ngIf="!mobile_view">
+            <clr-tree-node [clrExpanded]="true" style="outline: none;">
+              Change View
+              <clr-tree-node>
+                <button class="btn" (click)="changeView(1)">
+                  <clr-icon shape="view-list" size="25"></clr-icon>List View
+              </button>
+              </clr-tree-node>
+              <clr-tree-node>
+              <button class="btn" (click)="changeView(2)">
+                  <clr-icon shape="grid-view" size="25"></clr-icon>Website View
+              </button>
+              </clr-tree-node>
+            </clr-tree-node>
+            <clr-tree-node [clrExpanded]="true" style="outline: none;">
+              Sort by
+              <clr-tree-node >
+                <button class="btn" (click)="changeSort(0)">
+                  By Price: Low to High
+                </button>
+              </clr-tree-node>
+              <clr-tree-node>
+                <button class="btn" (click)="changeSort(1)">
+                    By Price: High to Low
+                </button>
+              </clr-tree-node>
+              <clr-tree-node>
+                <button class="btn" (click)="changeSort(2)">
+                    By Rating
+                </button>
+              </clr-tree-node>
+            </clr-tree-node>
+          </clr-tree>
+
+        </clr-vertical-nav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="main-container">
+            <header class="header header-5" style="display: flex;justify-content: space-between;" *ngIf="mobile_view">
+                <div class="branding">
+                    <a style="cursor: pointer;" (click)="opened=!opened" class="nav-link">
+                        <clr-icon shape="bars" size="25" style="color: white;"></clr-icon>
+                    </a>
+                    <span class="title" style="font-weight: bold;font-size: large;" *ngIf="showContainer">
+                      DEAL HUB
+                      <sub style="font-weight: lighter;font-size: small;">
+                        The last stop for all deals.
+                      </sub>
+                    </span>
+                    <span class="title" style="font-weight: bold;font-size: large;" *ngIf="!showContainer">
+                      DEAL HUB
+                    </span>
+                </div>
+                <!--SEARCH-BAR-->
+                <div class="searchbar-container">
+                    <div class="icons-search-wrapper">
+                      <label class="searchbar-label">
+                        <a style="cursor: pointer;" (click)="search($event)"><clr-icon shape="search" size="24"></clr-icon></a>
+                        <input type="text" [(ngModel)]="user_input" class="searchbar-input" placeholder="Search..." (keydown)="search($event)">
+                      </label>
+                    </div>
+                  </div>
+                <!---->
+                <!-- BUDGET CART -->
+                <div style="display: flex;justify-content: flex-end;">
+                  <div style="display: flex;align-items: center; margin: 0px 10px;">
+                    <a style="cursor: pointer;" class="nav-link" style="margin: 0px 10px;" (click)="goToCart()">
+                      <clr-icon shape="shopping-cart" size="25"></clr-icon>
+                    </a>
+                  </div>
+                </div>
+                <!---->
+            </header>
+
+            <header class="header header-5" style="display: flex;" *ngIf="!mobile_view">
+              <div class="branding">
+                <a style="cursor: pointer;" (click)="opened=!opened" class="nav-link">
+                    <clr-icon shape="bars" size="25" style="color: white;"></clr-icon>
+                </a>
+                <span class="title" style="font-weight: bold;font-size: large;">
+                  D H
+                </span>
+              </div>
+              <!--SEARCH-BAR-->
+                <div class="search" style="width: 50%;">
+                  <div class="mob-search">
+                   <input type="text" [(ngModel)]="user_input" placeholder="Search..." (keydown)="search($event)">
+                   <a style="cursor: pointer;" (click)="search($event)"><clr-icon shape="search" size="15"></clr-icon></a>
+                  </div>
+                </div>
+              <!---->
+              <!-- BUDGET CART -->
+              <div style="display: flex;justify-content: flex-end;">
+                <div style="display: flex;align-items: center; margin: 0px 10px;">
+                  <a style="cursor: pointer;" class="nav-link" style="margin: 0px 10px;" (click)="goToCart()">
+                    <clr-icon shape="shopping-cart" size="25"></clr-icon>
+                  </a>
+                </div>
+              </div>
+              <!---->
+            </header>
+
+            <div class="content-container">
+                <nav class="sidenav" style="width: 30%;" *ngIf="this.showContainer">
+                    <section class="sidenav-content">
+                      <clr-tree>
+                        <clr-tree-node>
+                          Filters
+                          <clr-tree-node [clrExpanded]="true">
+                            <app-sidenav style="width: 100%;"></app-sidenav>
+                          </clr-tree-node>
+                        </clr-tree-node>
+                      </clr-tree>
+                    </section>
+                </nav>
+                <div class="content-area">
+                      <nav class="subnav" *ngIf="cart_display">
+                          <ul class="nav" [ngStyle]="{'padding-left':mobile_view ? '1.2rem' : '0rem' }">
+
+                              <li class="nav-item">
+                                <a routerLink="onlinestores" class="nav-link" *ngIf="!mergedbool" routerLinkActive="active" [@inOutAnimation]>Online Stores <span class="badge badge-orange">{{online_badge}}</span></a>
+                                </li>
+                                <li class="nav-item">
+                                <a routerLink="retailstores" class="nav-link" *ngIf="!mergedbool" routerLinkActive="active" [@inOutAnimation]>Retail Stores <span class="badge badge-orange">{{retail_badge}}</span></a>
+                                </li>
+                                <li class="nav-item">
+                                <a routerLink="mergedresults" class="nav-link" *ngIf="mergedbool" routerLinkActive="active" [@inOutAnimation]>Merged Results <span class="badge badge-orange">{{merged_badge}}</span></a>
+                              </li>
+
+                              <ul class="nav" style="display: flex;justify-content: flex-end;" *ngIf="mobile_view">
+                                  <!-- TOGGLE SWITCH -->
+                                  <span>
+                                  Show Merged Results
+                                  </span>
+                                  <div style="margin: 0px 10px;">
+                                  <input type="checkbox" clrToggle [checked]="mergedbool" (change)="merged()"/>
+                                  </div>
+                                  <!-- 3-DOT DROPDOWN -->
+                                  <mat-menu #rootMenu="matMenu">
+                                      <button mat-menu-item [matMenuTriggerFor]="subMenu_1">Change View</button>
+                                      <button mat-menu-item [matMenuTriggerFor]="subMenu_2">Sort by</button>
+                                  </mat-menu>
+
+                                  <mat-menu #subMenu_1="matMenu">
+                                      <button mat-menu-item matTooltip="list view" (click)="changeView(1)">
+                                          <clr-icon shape="view-list" size="25"></clr-icon>
+                                      </button>
+                                      <button mat-menu-item matTooltip="website view" (click)="changeView(2)">
+                                          <clr-icon shape="grid-view" size="25"></clr-icon>
+                                      </button>
+                                  </mat-menu>
+
+                                  <mat-menu #subMenu_2="matMenu">
+                                      <button mat-menu-item (click)="changeSort(0)">
+                                          By Price: Low to High
+                                      </button>
+                                      <button mat-menu-item (click)="changeSort(1)">
+                                          By Price: High to Low
+                                      </button>
+                                      <button mat-menu-item (click)="changeSort(2)">
+                                          By Rating
+                                      </button>
+                                  </mat-menu>
+
+                                  <button mat-icon-button [matMenuTriggerFor]="rootMenu">
+                                      <mat-icon>more_vert</mat-icon>
+                                  </button>
+                              </ul>
+                          </ul>
+                      </nav>
+                      <main [@routeAnimations]="prepareRoute(outlet)" class="content">
+                      <router-outlet #outlet="outlet"></router-outlet>
+                      </main>
+                </div>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+<ngx-spinner name = "search" bdColor = "rgba(0, 0, 0, 0.5)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true">
+  <p style="color: white" >
+     Fetching best Results...
+  </p>
+</ngx-spinner>
